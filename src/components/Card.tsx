@@ -2,7 +2,19 @@ import { offer } from "../scripts/data";
 import { twJoin } from "tailwind-merge";
 import randomKey from "../scripts/randomKey";
 
-export default function Card(offer: offer) {
+export default function Card({
+	offer,
+	onRole,
+	onLevel,
+	onLang,
+	onTool,
+}: {
+	offer: offer;
+	onRole: (role: string) => void;
+	onLevel: (level: string) => void;
+	onLang: (lang: string) => void;
+	onTool: (tool: string) => void;
+}) {
 	return (
 		<div
 			className={twJoin(
@@ -50,15 +62,23 @@ export default function Card(offer: offer) {
 				</div>
 			</div>
 			<div className="flex flex-row flex-wrap gap-x-4 gap-y-2 md:items-center">
-				<button className="text-accent bg-background rounded-sm px-2 font-medium py-1 hover:bg-accent hover:cursor-pointer hover:text-white md:h-min  md:text-sm">
+				<button
+					onClick={() => onRole(offer.role)}
+					data-type-role={offer.role}
+					className="text-accent bg-background rounded-sm px-2 font-medium py-1 hover:bg-accent hover:cursor-pointer hover:text-white md:h-min  md:text-sm">
 					{offer.role}
 				</button>
-				<button className="text-accent bg-background rounded-sm px-2 font-medium py-1 hover:bg-accent hover:cursor-pointer hover:text-white md:h-min  md:text-sm">
+				<button
+					onClick={() => onLevel(offer.level)}
+					data-type-level={offer.level}
+					className="text-accent bg-background rounded-sm px-2 font-medium py-1 hover:bg-accent hover:cursor-pointer hover:text-white md:h-min  md:text-sm">
 					{offer.level}
 				</button>
 				{offer.languages.map((lang) => {
 					return (
 						<button
+							onClick={() => onLang(lang)}
+							data-type-lang={lang}
 							className="text-accent bg-background rounded-sm px-2 font-medium py-1 hover:bg-accent hover:cursor-pointer hover:text-white md:h-min md:text-sm"
 							key={randomKey()}>
 							{lang}
@@ -68,6 +88,8 @@ export default function Card(offer: offer) {
 				{offer.tools.map((tool) => {
 					return (
 						<button
+							onClick={() => onTool(tool)}
+							data-type-tool={tool}
 							className="text-accent bg-background rounded-sm px-2 font-medium py-1 hover:bg-accent hover:cursor-pointer hover:text-white md:h-min  md:text-sm"
 							key={randomKey()}>
 							{tool}
