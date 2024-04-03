@@ -85,8 +85,7 @@ function App() {
 				) : null}
 			</header>
 			<main className="flex flex-col px-3 gap-8 my-24 lg:px-[12vw]">
-				{data.map((card: offer, index) => {
-					//NO FILTERS SO EVERYTHING GOERS THROUGH
+				{data.map((card: offer) => {
 					if (
 						!role &&
 						langs.length === 0 &&
@@ -110,7 +109,7 @@ function App() {
 							/>
 						);
 					}
-					//IF THERE IS ONLY ONE LANG
+
 					if (
 						langs.length === 1 &&
 						!card.languages.some((lang) => langs.includes(lang))
@@ -142,7 +141,6 @@ function App() {
 						}
 					}
 
-					//IF THERE IS ONLY ONE TOOL
 					if (
 						tools.length === 1 &&
 						!card.tools.some((tool) => tools.includes(tool))
@@ -150,33 +148,10 @@ function App() {
 						return null;
 					}
 
-					// if (
-					// 	langs.length >= 2 &&
-					// 	card.languages.every((lang) => langs.includes(lang))
-					// ) {
-					// 	console.log("powyzej dwoch" + index);
-
-					// 	console.log(
-					// 		!card.languages.every((lang) =>
-					// 			langs.includes(lang)
-					// 		)
-					// 	);
-					// } else {
-					// 	return;
-					// }
-
-					// if (
-					// 	tools.length >= 2 &&
-					// 	!card.tools.every((tool) => tools.includes(tool))
-					// ) {
-					// 	return null;
-					// }
-					//IF THERE IS ROLE
 					if (role && card.role !== role) {
 						return null;
 					}
 
-					//IF THERE IS LEVEL
 					if (level && card.level !== level) {
 						return null;
 					}
