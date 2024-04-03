@@ -38,11 +38,6 @@ function App() {
 											<FilterItem
 												key={randomKey()}
 												onDelete={() => {
-													langs.filter(
-														(deleteLang) =>
-															deleteLang !== lang
-													);
-
 													setLangs(
 														langs.filter(
 															(deleteLang) =>
@@ -63,7 +58,7 @@ function App() {
 												key={randomKey()}
 												onDelete={() => {
 													setTools(
-														langs.filter(
+														tools.filter(
 															(deleteTool) =>
 																deleteTool !==
 																tool
@@ -90,7 +85,7 @@ function App() {
 				) : null}
 			</header>
 			<main className="flex flex-col px-3 gap-8 my-24 lg:px-[12vw]">
-				{data.map((card: offer) => {
+				{data.map((card: offer, index) => {
 					//NO FILTERS SO EVERYTHING GOERS THROUGH
 					if (
 						!role &&
@@ -123,11 +118,28 @@ function App() {
 						return null;
 					}
 
-					if (
-						langs.length >= 2 &&
-						!card.languages.every((lang) => langs.includes(lang))
-					) {
-						return null;
+					if (langs.length >= 2) {
+						let acceptable: boolean = true;
+						langs.forEach((lang) => {
+							if (!card.languages.includes(lang)) {
+								acceptable = false;
+							}
+						});
+						if (!acceptable) {
+							return null;
+						}
+					}
+
+					if (tools.length >= 2) {
+						let acceptable: boolean = true;
+						tools.forEach((tool) => {
+							if (!card.tools.includes(tool)) {
+								acceptable = false;
+							}
+						});
+						if (!acceptable) {
+							return null;
+						}
 					}
 
 					//IF THERE IS ONLY ONE TOOL
@@ -138,12 +150,27 @@ function App() {
 						return null;
 					}
 
-					if (
-						tools.length >= 2 &&
-						!card.tools.every((tool) => tools.includes(tool))
-					) {
-						return null;
-					}
+					// if (
+					// 	langs.length >= 2 &&
+					// 	card.languages.every((lang) => langs.includes(lang))
+					// ) {
+					// 	console.log("powyzej dwoch" + index);
+
+					// 	console.log(
+					// 		!card.languages.every((lang) =>
+					// 			langs.includes(lang)
+					// 		)
+					// 	);
+					// } else {
+					// 	return;
+					// }
+
+					// if (
+					// 	tools.length >= 2 &&
+					// 	!card.tools.every((tool) => tools.includes(tool))
+					// ) {
+					// 	return null;
+					// }
 					//IF THERE IS ROLE
 					if (role && card.role !== role) {
 						return null;
