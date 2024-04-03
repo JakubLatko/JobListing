@@ -11,7 +11,7 @@ export default function FilterItem({
 			<button
 				className="bg-accent  aspect-auto px-2 rounded-r-md hover:cursor-pointer hover:bg-secondary"
 				onClick={() => onDelete(item)}>
-				<img src="../public/images/clear.svg" alt="" />
+				<img src="/images/clear.svg" alt="" />
 			</button>
 		</div>
 	);
